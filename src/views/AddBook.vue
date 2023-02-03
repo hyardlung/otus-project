@@ -2,7 +2,7 @@
   <main>
     <div class="container">
       <div class="controls">
-        <router-link to="/books">Back</router-link>
+        <RouterLink :to="{ name: 'books' }">← Back</RouterLink>
       </div>
       <form @submit.prevent="addBook(newBook)" class="add-form">
         <h1>Add new book</h1>

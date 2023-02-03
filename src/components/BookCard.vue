@@ -1,5 +1,5 @@
 <template>
-  <div class="card">
+  <div class="card" @click="$emit('go-to-book', card.id)">
     <img :src="imageSrc(card)" :alt="card.title" class="card__img" />
     <div v-if="hasOverlay" class="card__overlay">
       <button class="card__delete" @click="$emit('deleteBook', index)">
@@ -11,6 +11,8 @@
 </template>
 
 <script setup>
+import { imageSrc } from "../helpers.js";
+
 defineProps({
   card: {
     type: Object,
@@ -21,14 +23,8 @@ defineProps({
     default: true,
   },
 });
-
-function imageSrc(val) {
-  const formats = Object.values(val.formats);
-  const src = formats.find((str) => str.includes(".cover."));
-  if (src) return src;
-  if (!src) return "";
-}
 </script>
+
 <style lang="sass">
 .card
   position: relative
@@ -37,6 +33,7 @@ function imageSrc(val) {
   width: 100%
   height: 250px
   overflow: hidden
+  cursor: pointer
   &:hover &__overlay
     opacity: 1
 

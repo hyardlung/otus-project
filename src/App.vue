@@ -4,10 +4,10 @@ import { RouterLink, RouterView } from "vue-router";
 
 <template>
   <header>
-    <nav>
-      <RouterLink to="/">Home</RouterLink>
-      <RouterLink to="/books">Books</RouterLink>
-      <RouterLink to="/authors">Authors</RouterLink>
+    <nav v-if="$route.name !== 'home'">
+      <RouterLink :to="{ name: 'home' }">Home</RouterLink>
+      <RouterLink :to="{ name: 'books' }">Books</RouterLink>
+      <RouterLink :to="{ name: 'authors' }">Authors</RouterLink>
     </nav>
   </header>
 

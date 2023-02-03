@@ -1,8 +1,5 @@
 import { createRouter, createWebHistory } from "vue-router";
 import HomeView from "../views/HomeView.vue";
-import BooksView from "../views/BooksView.vue";
-import AuthorsView from "../views/AuthorsView.vue";
-import AddBook from "../views/AddBook.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -15,19 +12,35 @@ const router = createRouter({
     {
       path: "/books",
       name: "books",
-      component: BooksView,
+      component: () => import("../views/BooksView.vue"),
+    },
+    {
+      path: "/books/:bookId",
+      name: "book",
+      component: () => import("../views/BookPage.vue"),
+      props: true,
     },
     {
       path: "/add-book",
       name: "add-book",
-      component: AddBook,
+      component: () => import("../views/AddBook.vue"),
     },
     {
       path: "/authors",
       name: "authors",
-      component: AuthorsView,
+      component: () => import("../views/AuthorsView.vue"),
+    },
+    {
+      path: "/:pathMatch(.*)*",
+      name: "not-found",
+      component: () => import("../views/NotFound.vue"),
     },
   ],
+  scrollBehavior() {
+    return {
+      top: 0,
+    };
+  },
 });
 
 export default router;
