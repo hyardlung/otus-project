@@ -4,17 +4,29 @@
       <div class="controls">
         <RouterLink :to="{ name: 'books' }">← Back</RouterLink>
       </div>
-      <form @submit.prevent="addBook(newBook)" class="add-form">
+      <form
+        @submit.prevent="booksStore.addBook(booksStore.newBook)"
+        class="add-form"
+      >
         <h1>Add new book</h1>
         <label class="add-form__item">
           Title
-          <input type="text" v-model="newBook.title" class="add-form__input" />
+          <input
+            type="text"
+            v-model="booksStore.newBook.title"
+            class="add-form__input"
+            required
+          />
+        </label>
+        <label class="add-form__item">
+          Cover
+          <input type="text" v-model="booksStore.src" class="add-form__input" />
         </label>
         <label class="add-form__item">
           Subjects
           <input
             type="text"
-            v-model="newBook.subjects"
+            v-model="booksStore.newBook.subjects"
             class="add-form__input"
           />
         </label>
@@ -22,7 +34,7 @@
           Authors
           <input
             type="text"
-            v-model="newBook.authors"
+            v-model="booksStore.newBook.authors"
             class="add-form__input"
           />
         </label>
@@ -30,7 +42,7 @@
           Bookshalves
           <input
             type="text"
-            v-model="newBook.bookshalves"
+            v-model="booksStore.newBook.bookshalves"
             class="add-form__input"
           />
         </label>
@@ -41,31 +53,16 @@
 </template>
 
 <script setup>
-import { reactive, onBeforeMount } from "vue";
+import { onBeforeMount } from "vue";
+import { useBooksStore } from "@/stores/books";
 
-import { getBooksFromApi } from "../helpers";
-import { books } from "../stores/books";
-
-const newBook = reactive({});
+const booksStore = useBooksStore();
 
 onBeforeMount(() => {
-  getBooks();
+  if (!booksStore.books.value) booksStore.getBooksFromApi();
 });
-
-async function getBooks() {
-  await getBooksFromApi(books);
-}
-
-function strToArr(str) {
-  return str.includes(",") ? str.split(", ") : [str];
-}
-
-function addBook(book) {
-  book.subjects = strToArr(book.subjects);
-  book.bookshalves = strToArr(book.bookshalves);
-  books.value.push(book);
-}
 </script>
+
 <style lang="sass">
 .controls
   margin: 20px 0
@@ -88,7 +85,13 @@ function addBook(book) {
     width: 100%
     height: 40px
     font-size: 16px
+    color: #fff
+    background: rgba(255, 255, 255, .09)
     border-radius: 8px
+    border: 1px solid rgba(255, 255, 255, .2)
+    transition: all .3s ease-in-out
+    &:focus
+      background: rgba(255, 255, 255, .2)
 
   &__button
     margin-top: 40px

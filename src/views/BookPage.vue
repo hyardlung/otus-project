@@ -6,16 +6,24 @@
       </div>
       <div class="book">
         <div class="book__cover">
-          <img :src="imageSrc(currentBook)" alt="" class="book__cover-img" />
+          <img
+            :src="generalStore.getImageSrc(booksStore.currentBook)"
+            alt=""
+            class="book__cover-img"
+          />
         </div>
         <div class="book__text">
-          <h1 class="book__title">{{ currentBook.title }}</h1>
-          <div class="book__authors">
-            <span>{{
-              currentBook.authors.length > 1 ? "Authors:" : "Author:"
-            }}</span>
+          <h1 class="book__title">{{ booksStore.currentBook.title }}</h1>
+          <div class="book__item book__authors">
+            <span class="book__item-title">
+              {{
+                booksStore.currentBook.authors.length > 1
+                  ? "Authors:"
+                  : "Author:"
+              }}
+            </span>
             <div
-              v-for="author in currentBook.authors"
+              v-for="author in booksStore.currentBook.authors"
               :key="author"
               class="book__author"
             >
@@ -26,14 +34,19 @@
             </div>
           </div>
 
-          <div v-if="currentBook.bookshelves.length" class="book__bookshelves">
-            <span>{{
-              currentBook.bookshelves.length > 1
-                ? "Bookshelves:"
-                : "Bookshelve:"
-            }}</span>
+          <div
+            v-if="booksStore.currentBook.bookshelves.length"
+            class="book__item book__bookshelves"
+          >
+            <span class="book__item-title">
+              {{
+                booksStore.currentBook.bookshelves.length > 1
+                  ? "Bookshelves:"
+                  : "Bookshelve:"
+              }}
+            </span>
             <div
-              v-for="bookshelve in currentBook.bookshelves"
+              v-for="bookshelve in booksStore.currentBook.bookshelves"
               :key="bookshelve"
               class="book__bookshelve"
             >
@@ -41,51 +54,41 @@
             </div>
           </div>
 
-          <div class="book__subjects">
-            <span>Subjects:</span>
+          <div class="book__item book__subjects">
+            <span class="book__item-title">Subjects:</span>
             <div
-              v-for="bookshelve in currentBook.bookshelves"
-              :key="bookshelve"
-              class="book__bookshelve"
+              v-for="subject in booksStore.currentBook.subjects"
+              :key="subject"
+              class="book__subject"
             >
-              <span>{{ bookshelve }}</span>
+              <span>{{ subject }}</span>
             </div>
           </div>
 
-          <span>Download count: {{ currentBook.download_count }}</span>
+          <span class="book__item">
+            <span class="book__item-title">Download count:</span>
+            {{ booksStore.currentBook.download_count }}
+          </span>
         </div>
       </div>
     </div>
   </main>
 </template>
 <script setup>
-import { ref, onBeforeMount } from "vue";
+import { onBeforeMount } from "vue";
+import { useGeneralStore } from "@/stores/general";
+import { useBooksStore } from "@/stores/books";
 
-import { getBooksFromApi } from "../helpers";
-import { books } from "../stores/books";
-import { imageSrc } from "../helpers";
-
+const generalStore = useGeneralStore();
+const booksStore = useBooksStore();
 const props = defineProps(["bookId"]);
 
-const isLoading = ref(false);
-const currentBook = ref({});
-
 onBeforeMount(() => {
-  getBooks();
-  findBook(props.bookId);
-  console.log(currentBook.value);
+  if (!booksStore.books.value) booksStore.getBooksFromApi();
+  booksStore.findBook(props.bookId);
 });
-
-async function getBooks() {
-  isLoading.value = true;
-  await getBooksFromApi(books);
-  isLoading.value = false;
-}
-
-function findBook(id) {
-  currentBook.value = books.value.find((item) => item.id == id);
-}
 </script>
+
 <style lang="sass" scoped>
 .controls
   margin: 20px 0
@@ -99,12 +102,10 @@ function findBook(id) {
     flex-direction: column
     gap: 16px
 
-  &__authors
-    display: flex
-    flex-direction: column
-    gap: 8px
+  &__item-title
+    font-weight: 700
 
   &__author
     display: flex
-    gap: 12px
+    gap: 8px
 </style>
