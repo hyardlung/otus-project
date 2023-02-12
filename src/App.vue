@@ -95,6 +95,16 @@ nav a:first-of-type {
 </style>
 
 <style lang="sass">
+.controls
+  position: sticky
+  top: 0
+  display: flex
+  align-items: center
+  justify-content: space-between
+  padding: 20px 0
+  background: var(--color-background)
+  z-index: 1
+
 .loader
   position: relative
   height: 75vh

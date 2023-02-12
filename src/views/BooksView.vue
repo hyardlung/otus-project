@@ -1,31 +1,29 @@
 <template>
-  <main>
-    <div class="container">
-      <div class="controls">
-        <RouterLink :to="{ name: 'add-book' }">Add book</RouterLink>
-        <div class="pagination">
-          <button class="pagination__btn" @click="booksStore.prevPage">
-            prev
-          </button>
-          <button class="pagination__btn" @click="booksStore.nextPage">
-            next
-          </button>
-        </div>
+  <main class="container">
+    <div class="controls">
+      <RouterLink :to="{ name: 'add-book' }">Add book</RouterLink>
+      <div class="pagination">
+        <button class="pagination__btn" @click="booksStore.prevPage">
+          prev
+        </button>
+        <button class="pagination__btn" @click="booksStore.nextPage">
+          next
+        </button>
       </div>
-      <template v-if="!generalStore.isLoading">
-        <div class="books">
-          <BookCard
-            v-for="(book, index) in booksStore.books.value"
-            :key="book.id"
-            :card="book"
-            @go-to-book="goToBook(book.id)"
-            @deleteBook="booksStore.deleteBook(index)"
-          />
-        </div>
-      </template>
-      <div v-else class="loader">
-        <img :src="generalStore.loader" alt="" class="loader__img" />
+    </div>
+    <template v-if="!generalStore.isLoading">
+      <div class="books">
+        <BookCard
+          v-for="(book, index) in booksStore.books.value"
+          :key="book.id"
+          :card="book"
+          @go-to-book="goToBook(book.id)"
+          @deleteBook="booksStore.deleteBook(index)"
+        />
       </div>
+    </template>
+    <div v-else class="loader">
+      <img :src="generalStore.loader" alt="" class="loader__img" />
     </div>
   </main>
 </template>
@@ -61,16 +59,6 @@ function goToBook(id) {
   display: flex
   flex-wrap: wrap
   gap: 20px
-
-.controls
-  position: sticky
-  top: 0
-  display: flex
-  align-items: center
-  justify-content: space-between
-  padding: 20px 0
-  background: var(--color-background)
-  z-index: 1
 
 .pagination
   display: flex

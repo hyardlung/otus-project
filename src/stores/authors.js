@@ -1,4 +1,4 @@
-import { reactive } from "vue";
+import { ref, reactive } from "vue";
 import { defineStore } from "pinia";
 import { useBooksStore } from "./books";
 
@@ -6,16 +6,21 @@ export const useAuthorsStore = defineStore("authors", () => {
   const booksStore = useBooksStore();
 
   const authors = reactive([]);
+  const newAuthor = ref({});
 
-  async function createAuthorSet() {
+  async function createAuthorsArray() {
     if (!booksStore.books.value) await booksStore.getBooksFromApi();
     await booksStore.books.value.forEach((book) => {
       book.authors.forEach((author) => {
-        const regularObj = Object.assign({}, author);
-        authors.push(regularObj);
+        authors.push(author);
       });
     });
   }
 
-  return { authors, createAuthorSet };
+  function AddAuthor(author) {
+    authors.push(author);
+    newAuthor.value = {};
+  }
+
+  return { authors, newAuthor, createAuthorsArray, AddAuthor };
 });

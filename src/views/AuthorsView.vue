@@ -1,5 +1,8 @@
 <template>
-  <main>
+  <main class="container">
+    <div class="controls">
+      <RouterLink :to="{ name: 'add-author' }">Add author</RouterLink>
+    </div>
     <div class="authors" v-if="!generalStore.isLoading">
       <div class="author" v-for="author in authorsStore.authors" :key="author">
         <span class="author__name">{{ author.name }}</span>
@@ -21,7 +24,7 @@ import { useGeneralStore } from "@/stores/general";
 import { useAuthorsStore } from "@/stores/authors";
 
 onBeforeMount(() => {
-  if (!authorsStore.authors.value) authorsStore.createAuthorSet();
+  if (!authorsStore.authors.value) authorsStore.createAuthorsArray();
 });
 
 const generalStore = useGeneralStore();

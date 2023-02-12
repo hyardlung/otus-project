@@ -64,8 +64,6 @@ onBeforeMount(() => {
 </script>
 
 <style lang="sass">
-.controls
-  margin: 20px 0
 
 .add-form
   padding: 20px 0

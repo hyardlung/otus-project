@@ -90,9 +90,6 @@ onBeforeMount(() => {
 </script>
 
 <style lang="sass" scoped>
-.controls
-  margin: 20px 0
-
 .book
   display: flex
   gap: 32px
