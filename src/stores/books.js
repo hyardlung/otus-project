@@ -12,10 +12,11 @@ export const useBooksStore = defineStore("books", () => {
   const currentBook = ref({});
   const currentPage = ref(1);
   const src = ref("");
+  const baseURL = ref("https://gutendex.com/books/");
 
   async function getBooksFromApi() {
     generalStore.isLoading = true;
-    const response = await axios.get("https://gutendex.com/books/");
+    const response = await axios.get(baseURL.value);
     books.value = response.data.results;
     generalStore.isLoading = false;
   }
@@ -24,7 +25,7 @@ export const useBooksStore = defineStore("books", () => {
     generalStore.isLoading = true;
     if (currentPage.value > 1) {
       const response = await axios.get(
-        `https://gutendex.com/books/?page=${currentPage.value--}`
+        `${baseURL.value}?page=${currentPage.value--}`
       );
       books.value = response.data.results;
     }
@@ -34,7 +35,7 @@ export const useBooksStore = defineStore("books", () => {
   async function nextPage() {
     generalStore.isLoading = true;
     const response = await axios.get(
-      `https://gutendex.com/books/?page=${currentPage.value++}`
+      `${baseURL.value}?page=${currentPage.value++}`
     );
     books.value = response.data.results;
     generalStore.isLoading = false;
