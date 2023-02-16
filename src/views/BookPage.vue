@@ -2,7 +2,9 @@
   <main>
     <div class="container">
       <div class="controls">
-        <RouterLink :to="{ name: 'books' }">← Back</RouterLink>
+        <button @click="router.go(-1)" class="green controls__green">
+          Back
+        </button>
       </div>
       <div class="book">
         <div class="book__cover">
@@ -27,7 +29,11 @@
               :key="author"
               class="book__author"
             >
-              <span>{{ author.name }} </span>
+              <RouterLink
+                :to="{ name: 'author', params: { name: author.name } }"
+              >
+                {{ author.name }}
+              </RouterLink>
               <p class="book__author-dates">
                 <span>({{ author.birth_year }} - {{ author.death_year }})</span>
               </p>
@@ -90,6 +96,26 @@ onBeforeMount(() => {
 </script>
 
 <style lang="sass" scoped>
+.controls__green
+  position: relative
+  padding: 10px
+  display: flex
+  align-items: center
+  gap: 4px
+  background: none
+  border: none
+  cursor: pointer
+  transition: all .3s ease-in-out
+  &::before
+    content: "← "
+    position: absolute
+    left: -10px
+    bottom: 10px
+    transition: all .3s ease-in-out
+  &:hover
+    &::before
+      left: -16px
+
 .book
   display: flex
   gap: 32px

@@ -31,6 +31,12 @@ const router = createRouter({
       component: () => import("../views/AuthorsView.vue"),
     },
     {
+      path: "/authors/:name",
+      name: "author",
+      component: () => import("../views/AuthorPage.vue"),
+      props: true,
+    },
+    {
       path: "/add-author",
       name: "add-author",
       component: () => import("../views/AddAuthor.vue"),

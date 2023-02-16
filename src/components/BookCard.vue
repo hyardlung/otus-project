@@ -6,7 +6,11 @@
       class="card__img"
     />
     <div v-if="hasOverlay" class="card__overlay">
-      <button class="card__delete" @click="$emit('deleteBook', index)">
+      <button
+        v-if="isDeletable"
+        class="card__delete"
+        @click="$emit('deleteBook', index)"
+      >
         <div>⤫</div>
       </button>
       <h2 class="card__title">{{ card.title }}</h2>
@@ -25,6 +29,10 @@ defineProps({
     required: true,
   },
   hasOverlay: {
+    type: Boolean,
+    default: true,
+  },
+  isDeletable: {
     type: Boolean,
     default: true,
   },
