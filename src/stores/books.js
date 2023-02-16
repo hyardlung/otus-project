@@ -2,6 +2,7 @@ import axios from "axios";
 import { ref, reactive } from "vue";
 import { defineStore } from "pinia";
 import { useGeneralStore } from "./general";
+import { strToArr } from "@/helpers";
 
 export const useBooksStore = defineStore("books", () => {
   const generalStore = useGeneralStore();
@@ -46,9 +47,9 @@ export const useBooksStore = defineStore("books", () => {
   function addBook(book) {
     book.id = Math.random();
     book.formats = { "image/jpeg": src.value };
-    book.authors = generalStore.strToArr(book.authors);
-    book.subjects = generalStore.strToArr(book.subjects);
-    book.bookshalves = generalStore.strToArr(book.bookshalves);
+    book.authors = strToArr(book.authors);
+    book.subjects = strToArr(book.subjects);
+    book.bookshalves = strToArr(book.bookshalves);
     books.value.push(book);
     newBook.value = {};
   }
