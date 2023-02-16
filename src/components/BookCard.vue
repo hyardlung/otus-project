@@ -1,8 +1,16 @@
 <template>
   <div class="card" @click="$emit('go-to-book', card.id)">
-    <img :src="imageSrc(card)" :alt="card.title" class="card__img" />
+    <img
+      :src="generalStore.getImageSrc(card)"
+      :alt="card.title"
+      class="card__img"
+    />
     <div v-if="hasOverlay" class="card__overlay">
-      <button class="card__delete" @click="$emit('deleteBook', index)">
+      <button
+        v-if="isDeletable"
+        class="card__delete"
+        @click="$emit('deleteBook', index)"
+      >
         <div>⤫</div>
       </button>
       <h2 class="card__title">{{ card.title }}</h2>
@@ -11,7 +19,9 @@
 </template>
 
 <script setup>
-import { imageSrc } from "../helpers.js";
+import { useGeneralStore } from "@/stores/general";
+
+const generalStore = useGeneralStore();
 
 defineProps({
   card: {
@@ -19,6 +29,10 @@ defineProps({
     required: true,
   },
   hasOverlay: {
+    type: Boolean,
+    default: true,
+  },
+  isDeletable: {
     type: Boolean,
     default: true,
   },

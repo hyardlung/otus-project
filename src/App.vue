@@ -13,7 +13,7 @@ import { RouterLink, RouterView } from "vue-router";
   </header>
 
   <RouterView v-slot="{ Component }">
-    <transition name="slide-fade">
+    <transition name="slide" mode="out-in">
       <component :is="Component" :key="$route.path" />
     </transition>
   </RouterView>
@@ -82,17 +82,36 @@ nav a:first-of-type {
   }
 }
 
-.slide-fade-enter-active {
-  transition: all 0.3s ease-out;
+.slide-enter-active,
+.slide-leave-active {
+  transition: opacity 0.5s, transform 0.5s;
 }
 
-.slide-fade-leave-active {
-  transition: all 0.8s cubic-bezier(1, 0.5, 0.8, 1);
-}
-
-.slide-fade-enter-from,
-.slide-fade-leave-to {
-  transform: translateX(20px);
+.slide-enter-from,
+.slide-leave-to {
   opacity: 0;
+  transform: translateX(-30%);
 }
+</style>
+
+<style lang="sass">
+.controls
+  position: sticky
+  top: 0
+  display: flex
+  align-items: center
+  justify-content: space-between
+  padding: 20px 0
+  background: var(--color-background)
+  z-index: 1
+
+.loader
+  position: relative
+  height: 75vh
+  &__img
+    position: absolute
+    top: 50%
+    right: 50%
+    transform: translate(50%, -50%)
+    display: block
 </style>

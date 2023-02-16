@@ -1,7 +1,15 @@
 <template>
-  <main>
+  <main class="container">
+    <div class="controls">
+      <RouterLink :to="{ name: 'add-author' }">Add author</RouterLink>
+    </div>
     <div class="authors" v-if="!isLoading">
-      <div class="author" v-for="author in authorSet" :key="author">
+      <div
+        v-for="author in authorsStore.authors"
+        :key="author"
+        @click="goToAuthor(author.name)"
+        class="author"
+      >
         <span class="author__name">{{ author.name }}</span>
         <div class="author__dates">
           <span class="author__dob">{{ author.birth_year }}</span> —
@@ -10,37 +18,37 @@
       </div>
     </div>
     <div v-else class="loader">
-      <img :src="loader" alt="" class="loader__img" />
+      <img :src="loader" alt="loader" class="loader__img" />
     </div>
   </main>
 </template>
 
 <script setup>
-import { ref, onBeforeMount } from "vue";
+import { onBeforeMount } from "vue";
+import { useRouter } from "vue-router";
 
-import { getBooksFromApi } from "../helpers";
-import { books } from "../stores/books";
-import loader from "@/assets/ball-triangle.svg";
+import { storeToRefs } from "pinia";
+import { useGeneralStore } from "@/stores/general";
+import { useAuthorsStore } from "@/stores/authors";
+import { useBooksStore } from "../stores/books";
+
+const router = useRouter();
+const generalStore = useGeneralStore();
+const authorsStore = useAuthorsStore();
+const booksStore = useBooksStore();
+const { isLoading, loader } = storeToRefs(generalStore);
 
 onBeforeMount(() => {
-  getBooks();
-  createAuthorSet(books.value);
+  if (!booksStore.books.value) booksStore.getBooksFromApi();
+  if (!authorsStore.authors.value) {
+    authorsStore.createAuthorsArray();
+  }
 });
 
-const isLoading = ref(false);
-const authorSet = new Set();
-
-async function getBooks() {
-  isLoading.value = true;
-  await getBooksFromApi(books);
-  isLoading.value = false;
-}
-
-async function createAuthorSet(array) {
-  await array.forEach((obj) => {
-    obj.authors.forEach((author) => {
-      authorSet.add(author);
-    });
+function goToAuthor(name) {
+  router.push({
+    name: `author`,
+    params: { name: name },
   });
 }
 </script>
@@ -58,14 +66,4 @@ async function createAuthorSet(array) {
   &__name
     font-size: 28px
     line-height: 28px
-
-.loader
-  position: relative
-  height: 75vh
-  &__img
-    position: absolute
-    top: 50%
-    right: 50%
-    transform: translate(50%, -50%)
-    display: block
 </style>
