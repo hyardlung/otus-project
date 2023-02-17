@@ -3,6 +3,7 @@ import { RouterLink, RouterView } from "vue-router";
 </script>
 
 <template>
+  <notifications position="bottom right" />
   <header>
     <nav v-if="$route.name !== 'home'">
       <RouterLink :to="{ name: 'home' }">Home</RouterLink>
