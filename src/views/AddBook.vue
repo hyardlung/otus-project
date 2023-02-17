@@ -90,7 +90,9 @@
 import { ref, reactive, onBeforeMount } from "vue";
 import { useBooksStore } from "@/stores/books";
 import { strToArr } from "../helpers";
+import { useNotification } from "@kyvg/vue3-notification";
 
+const { notify } = useNotification();
 const booksStore = useBooksStore();
 const src = ref("");
 const newBook = ref({});
@@ -119,8 +121,12 @@ function addBook(book) {
   book.subjects = strToArr(book.subjects);
   book.bookshalves = strToArr(book.bookshalves);
   booksStore.books.value.push(book);
-  console.log(booksStore.books.value);
   newBook.value = {};
+  notify({
+    title: "SUCCESS 🎉",
+    text: "You added a new book to the list",
+    type: "success",
+  });
 }
 </script>
 
