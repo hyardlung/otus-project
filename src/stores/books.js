@@ -8,10 +8,8 @@ export const useBooksStore = defineStore("books", () => {
   const generalStore = useGeneralStore();
 
   const books = reactive([]);
-  const newBook = ref({});
   const currentBook = ref({});
   const currentPage = ref(1);
-  const src = ref("");
   const baseURL = ref("https://gutendex.com/books/");
 
   async function getBooksFromApi() {
@@ -45,16 +43,6 @@ export const useBooksStore = defineStore("books", () => {
     currentBook.value = books.value.find((item) => item.id == id);
   }
 
-  function addBook(book) {
-    book.id = Math.random();
-    book.formats = { "image/jpeg": src.value };
-    book.authors = strToArr(book.authors);
-    book.subjects = strToArr(book.subjects);
-    book.bookshalves = strToArr(book.bookshalves);
-    books.value.push(book);
-    newBook.value = {};
-  }
-
   function deleteBook(idx) {
     books.value.splice(idx, 1);
   }
@@ -63,11 +51,8 @@ export const useBooksStore = defineStore("books", () => {
     books,
     currentPage,
     currentBook,
-    newBook,
-    src,
     getBooksFromApi,
     findBook,
-    addBook,
     deleteBook,
     prevPage,
     nextPage,
