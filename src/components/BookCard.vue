@@ -1,10 +1,6 @@
 <template>
   <div class="card" @click="$emit('go-to-book', card.id)">
-    <img
-      :src="generalStore.getImageSrc(card)"
-      :alt="card.title"
-      class="card__img"
-    />
+    <img :src="getImageSrc(card)" :alt="card.title" class="card__img" />
     <div v-if="hasOverlay" class="card__overlay">
       <button
         v-if="isDeletable"
@@ -19,9 +15,7 @@
 </template>
 
 <script setup>
-import { useGeneralStore } from "@/stores/general";
-
-const generalStore = useGeneralStore();
+import { getImageSrc } from "@/helpers";
 
 defineProps({
   card: {

@@ -9,8 +9,8 @@
       <div class="book">
         <div class="book__cover">
           <img
-            :src="generalStore.getImageSrc(booksStore.currentBook)"
-            alt=""
+            :src="getImageSrc(booksStore.currentBook)"
+            :alt="booksStore.currentBook.title"
             class="book__cover-img"
           />
         </div>
@@ -82,10 +82,11 @@
 </template>
 <script setup>
 import { onBeforeMount } from "vue";
-import { useGeneralStore } from "@/stores/general";
+import { useRouter } from "vue-router";
 import { useBooksStore } from "@/stores/books";
+import { getImageSrc } from "@/helpers";
 
-const generalStore = useGeneralStore();
+const router = useRouter();
 const booksStore = useBooksStore();
 const props = defineProps(["bookId"]);
 
