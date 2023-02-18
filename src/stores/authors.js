@@ -6,7 +6,6 @@ export const useAuthorsStore = defineStore("authors", () => {
   const booksStore = useBooksStore();
 
   const authors = reactive([]);
-  const newAuthor = ref({});
   const currentAuthor = ref({});
 
   async function createAuthorsArray() {
@@ -22,17 +21,10 @@ export const useAuthorsStore = defineStore("authors", () => {
     currentAuthor.value = authors.find((author) => author.name === name);
   }
 
-  function AddAuthor(author) {
-    authors.push(author);
-    newAuthor.value = {};
-  }
-
   return {
     authors,
-    newAuthor,
     currentAuthor,
     createAuthorsArray,
     findAuthor,
-    AddAuthor,
   };
 });

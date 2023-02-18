@@ -240,7 +240,6 @@ function addBook(book) {
   book.authors.push(...newAuthors);
   book.subjects = strToArr(book.subjects);
   book.bookshalves = strToArr(book.bookshalves);
-  console.log(book.authors, newAuthors)
   booksStore.books.value.push(book);
   notify({
     title: "SUCCESS 🎉",

@@ -63,6 +63,11 @@ function goToAuthor(name) {
   display: flex
   flex-direction: column
   gap: 6px
+  transition: all .3s ease-in-out
+  cursor: pointer
+  &:hover
+    color: orange
+
   &__name
     font-size: 28px
     line-height: 28px
