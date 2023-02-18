@@ -1,7 +1,9 @@
 <template>
   <main class="container">
     <div class="controls">
-      <button @click="router.go(-1)" class="green controls__green">Back</button>
+      <button @click="router.go(-1)" class="orange controls__orange">
+        Back
+      </button>
     </div>
     <div class="author">
       <h1 class="author_name">{{ currentAuthor.name }}</h1>
@@ -67,7 +69,7 @@ function goToBook(id) {
 </script>
 
 <style lang="sass">
-.controls__green
+.controls__orange
   position: relative
   padding: 10px
   display: flex

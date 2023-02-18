@@ -2,7 +2,6 @@ import axios from "axios";
 import { ref, reactive } from "vue";
 import { defineStore } from "pinia";
 import { useGeneralStore } from "./general";
-import { strToArr } from "@/helpers";
 
 export const useBooksStore = defineStore("books", () => {
   const generalStore = useGeneralStore();

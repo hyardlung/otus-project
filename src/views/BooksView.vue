@@ -66,12 +66,12 @@ function goToBook(id) {
   &__btn
     width: 80px
     height: 36px
-    color: hsl(160deg 100% 37%)
+    color: #FFA500
     background: none
-    border: 1px solid hsl(160deg 100% 37%)
+    border: 1px solid #FFA500
     border-radius: 6px
     transition: all .3s ease-in-out
     cursor: pointer
     &:hover
-      background: #00bd7e20
+      background: #FFA50020
 </style>

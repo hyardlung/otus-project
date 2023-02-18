@@ -57,6 +57,6 @@
 .divider
   grid-area: divider
   width: 2px
-  background-color: #c1c1c1
+  background-color: #FFA50070
   border-radius: 100%
 </style>

@@ -2,7 +2,7 @@
   <main>
     <div class="container">
       <div class="controls">
-        <button @click="router.go(-1)" class="green controls__green">
+        <button @click="router.go(-1)" class="orange controls__orange">
           Back
         </button>
       </div>
@@ -97,7 +97,7 @@ onBeforeMount(() => {
 </script>
 
 <style lang="sass" scoped>
-.controls__green
+.controls__orange
   position: relative
   padding: 10px
   display: flex
