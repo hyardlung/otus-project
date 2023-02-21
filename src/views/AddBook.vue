@@ -182,7 +182,9 @@ const { notify } = useNotification();
 const booksStore = useBooksStore();
 const src = ref("");
 
-const newBook = ref({});
+const newBook = ref({
+  title: "",
+});
 const newAuthor = ref({});
 const newAuthors = reactive([]);
 
@@ -231,22 +233,22 @@ function addAuthor() {
   v$.value.$reset();
 }
 
-function addBook(book) {
-  book.id = Math.random();
-  book.formats = {
-    "image/jpeg": src.value || "./src/assets/book-cover-placeholder.svg",
-  };
-  book.authors = [];
-  book.authors.push(...newAuthors);
-  book.subjects = strToArr(book.subjects);
-  book.bookshalves = strToArr(book.bookshalves);
-  booksStore.books.value.push(book);
-  notify({
-    title: "SUCCESS 🎉",
-    text: "You added a new book to the list",
-    type: "success",
-  });
-}
+// function addBook(book) {
+//   book.id = Math.random();
+//   book.formats = {
+//     "image/jpeg": src.value || "./src/assets/book-cover-placeholder.svg",
+//   };
+//   book.authors = [];
+//   book.authors.push(...newAuthors);
+//   book.subjects = strToArr(book.subjects);
+//   book.bookshalves = strToArr(book.bookshalves);
+//   booksStore.books.value.push(book);
+//   notify({
+//     title: "SUCCESS 🎉",
+//     text: "You added a new book to the list",
+//     type: "success",
+//   });
+// }
 
 function submit(book) {
   v$.value.$validate();
@@ -260,11 +262,15 @@ function submit(book) {
   } else {
     try {
       addAuthor();
-      addBook(book);
+      booksStore.addBook(book, src.value, newAuthors);
       v$.value.$reset();
       newBook.value = {};
       newAuthors.length = 0;
-      console.log(booksStore.books.value, newAuthors);
+      notify({
+        title: "SUCCESS 🎉",
+        text: "You added a new book to the list",
+        type: "success",
+      });
     } catch (err) {
       console.log(err);
       notify({

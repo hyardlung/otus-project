@@ -1,0 +1,11 @@
+// Vitest Snapshot v1
+
+exports[`BookCard > renders all 1`] = `
+"<div class=\\"card\\"><img src=\\"http://example.com/image.jpg\\" alt=\\"My Book\\" class=\\"card__img\\">
+  <div class=\\"card__overlay\\"><button class=\\"card__delete\\">
+      <div class=\\"card__delete-cross\\">⤫</div>
+    </button>
+    <h2 class=\\"card__title\\">My Book</h2>
+  </div>
+</div>"
+`;

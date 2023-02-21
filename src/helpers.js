@@ -1,6 +1,9 @@
 export function getImageSrc(obj) {
-  const src = obj.formats["image/jpeg"];
-  return src ? src : "./src/assets/book-cover-placeholder.svg";
+  if (obj && obj.formats["image/jpeg"]) {
+    return obj.formats["image/jpeg"];
+  } else {
+    return "./src/assets/book-cover-placeholder.svg";
+  }
 }
 
 export function strToArr(str) {

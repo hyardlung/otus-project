@@ -1,13 +1,9 @@
 <template>
-  <div class="card" @click="$emit('go-to-book', card.id)">
+  <div class="card" @click="onBookClick(card.id)">
     <img :src="getImageSrc(card)" :alt="card.title" class="card__img" />
     <div v-if="hasOverlay" class="card__overlay">
-      <button
-        v-if="isDeletable"
-        class="card__delete"
-        @click="$emit('deleteBook', index)"
-      >
-        <div>⤫</div>
+      <button v-if="isDeletable" class="card__delete" @click="onBookDelete">
+        <div class="card__delete-cross">⤫</div>
       </button>
       <h2 class="card__title">{{ card.title }}</h2>
     </div>
@@ -31,6 +27,16 @@ defineProps({
     default: true,
   },
 });
+
+const emit = defineEmits(["goToBookPage", "deleteBook"]);
+
+function onBookClick(id) {
+  emit("goToBookPage", id);
+}
+
+function onBookDelete(index) {
+  emit("deleteBook", index);
+}
 </script>
 
 <style lang="sass">
@@ -68,16 +74,44 @@ defineProps({
     object-fit: cover
 
   &__delete
+    position: relative
+    padding: 0
     width: 20px
     height: 20px
+    display: flex
     align-self: flex-end
+    align-items: center
+    justify-content: center
     border: none
     border-radius: 50%
     background-color: tomato
     color: white
-    font-size: 12px
+    font-size: 18px
+    font-weight: 900
     cursor: pointer
     transition: all .2s ease
+    &__delete-cross
+      height: 18px
+    &::before
+      width: 0
+      content: 'Delete'
+      position: absolute
+      right: 10px
+      padding: 0 12px 0 5px
+      height: 20px
+      display: flex
+      align-items: center
+      font-size: 12px
+      // background: cyan
+      border-top-left-radius: 10px
+      border-bottom-left-radius: 10px
+      opacity: 0
+      transition: all .2s ease
+      background: #FF6347
+
     &:hover
       filter: brightness(135%)
+      &::before
+        width: 52px
+        opacity: 1
 </style>

@@ -15,9 +15,10 @@
       <div class="books">
         <BookCard
           v-for="(book, index) in booksStore.books.value"
+          :data-testid="`book-remove-${index}`"
           :key="book.id"
           :card="book"
-          @go-to-book="goToBook(book.id)"
+          @goToBookPage="goToBook(book.id)"
           @deleteBook="booksStore.deleteBook(index)"
         />
       </div>
