@@ -1,0 +1,20 @@
+// Vitest Snapshot v1
+
+exports[`AddBook > renders all 1`] = `
+"<main data-v-271f3949=\\"\\">
+  <div class=\\"container\\" data-v-271f3949=\\"\\">
+    <div class=\\"controls\\" data-v-271f3949=\\"\\">
+      <router-link-stub to=\\"[object Object]\\" data-v-271f3949=\\"\\"></router-link-stub>
+    </div>
+    <form class=\\"add-form\\" data-v-271f3949=\\"\\">
+      <h1 data-v-271f3949=\\"\\">Add new book</h1><!-- book title --><label class=\\"add-form__item\\" data-v-271f3949=\\"\\"> Title* <input type=\\"text\\" placeholder=\\"Book title\\" data-test=\\"book-title-input\\" class=\\"add-form__input\\" data-v-271f3949=\\"\\"></label><!-- book cover --><label class=\\"add-form__item\\" data-v-271f3949=\\"\\"> Cover <input type=\\"text\\" placeholder=\\"Cover URL\\" data-test=\\"book-cover-input\\" class=\\"add-form__input\\" data-v-271f3949=\\"\\"></label><!-- book author(s) -->
+      <fieldset class=\\"add-form__fieldset\\" data-v-271f3949=\\"\\">
+        <legend data-v-271f3949=\\"\\">Authors</legend>
+        <div class=\\"add-form__author\\" data-v-271f3949=\\"\\">
+          <!-- author's name --><label class=\\"add-form__item\\" data-v-271f3949=\\"\\"> Author's name* <input type=\\"text\\" data-test=\\"author-name-input\\" class=\\"add-form__input\\" data-v-271f3949=\\"\\"></label><label class=\\"add-form__item\\" data-v-271f3949=\\"\\"> Birth year* <input type=\\"text\\" data-test=\\"author-birth-input\\" class=\\"add-form__input\\" data-v-271f3949=\\"\\"></label><label class=\\"add-form__item\\" data-v-271f3949=\\"\\"> Death year <input type=\\"text\\" class=\\"add-form__input\\" data-v-271f3949=\\"\\"></label>
+        </div><button data-test=\\"submit-button\\" class=\\"add-form__add-author\\" data-v-271f3949=\\"\\"> Add another author </button>
+      </fieldset><!-- book subjects --><label class=\\"add-form__item\\" data-v-271f3949=\\"\\"> Subjects <input type=\\"text\\" placeholder=\\"Subjects, separated by commas\\" data-test=\\"subjects-input\\" class=\\"add-form__input\\" data-v-271f3949=\\"\\"></label><label class=\\"add-form__item\\" data-v-271f3949=\\"\\"> Bookshalves <input type=\\"text\\" placeholder=\\"Bookshalves, separated by commas\\" data-test=\\"bookshalves-input\\" class=\\"add-form__input\\" data-v-271f3949=\\"\\"></label><button class=\\"add-form__button\\" data-v-271f3949=\\"\\">Add</button>
+    </form>
+  </div>
+</main>"
+`;

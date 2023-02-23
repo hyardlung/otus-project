@@ -43,6 +43,10 @@ export const useBooksStore = defineStore("books", () => {
     generalStore.isLoading = false;
   }
 
+  function addAuthorToNewBook(newAuthor, newAuthors) {
+    newAuthors.push(newAuthor.value);
+  }
+
   function findBook(id) {
     currentBook.value = books.value.find((item) => item.id == id);
   }
@@ -56,7 +60,7 @@ export const useBooksStore = defineStore("books", () => {
     book.authors.push(...authors);
     book.subjects = strToArr(book.subjects);
     book.bookshalves = strToArr(book.bookshalves);
-    books.value.push(book);
+    books.push(book);
   }
 
   function deleteBook(idx) {
@@ -69,6 +73,7 @@ export const useBooksStore = defineStore("books", () => {
     currentBook,
     getNumberOfBooks,
     getBooksFromApi,
+    addAuthorToNewBook,
     findBook,
     addBook,
     deleteBook,

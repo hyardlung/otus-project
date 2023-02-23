@@ -12,6 +12,7 @@
           <input
             type="text"
             placeholder="Book title"
+            data-test="book-title-input"
             v-model="v$.newBook.title.$model"
             :class="[
               'add-form__input',
@@ -33,6 +34,7 @@
           <input
             type="text"
             placeholder="Cover URL"
+            data-test="book-cover-input"
             v-model="v$.src.$model"
             :class="[
               'add-form__input',
@@ -67,6 +69,7 @@
               Author's name*
               <input
                 type="text"
+                data-test="author-name-input"
                 v-model="v$.newAuthor.name.$model"
                 :class="[
                   'add-form__input',
@@ -85,6 +88,7 @@
               Birth year*
               <input
                 type="text"
+                data-test="author-birth-input"
                 v-model="v$.newAuthor.birth_year.$model"
                 :class="[
                   'add-form__input',
@@ -120,6 +124,7 @@
           </div>
           <button
             @click.prevent="addAuthor"
+            data-test="submit-button"
             :class="[
               'add-form__add-author',
               {
@@ -141,6 +146,7 @@
           <input
             type="text"
             placeholder="Subjects, separated by commas"
+            data-test="subjects-input"
             v-model="newBook.subjects"
             class="add-form__input"
           />
@@ -151,6 +157,7 @@
           <input
             type="text"
             placeholder="Bookshalves, separated by commas"
+            data-test="bookshalves-input"
             v-model="newBook.bookshalves"
             class="add-form__input"
           />
@@ -165,9 +172,7 @@
 import { ref, reactive, computed, onBeforeMount } from "vue";
 
 import { useBooksStore } from "@/stores/books";
-import { strToArr } from "../helpers";
 import { useNotification } from "@kyvg/vue3-notification";
-
 import { useVuelidate } from "@vuelidate/core";
 import {
   url,
@@ -228,27 +233,10 @@ onBeforeMount(() => {
 });
 
 function addAuthor() {
-  newAuthors.push(newAuthor.value);
+  booksStore.addAuthorToNewBook(newAuthor.value, newAuthors);
   newAuthor.value = {};
-  v$.value.$reset();
+  v$.value.newAuthor.$reset();
 }
-
-// function addBook(book) {
-//   book.id = Math.random();
-//   book.formats = {
-//     "image/jpeg": src.value || "./src/assets/book-cover-placeholder.svg",
-//   };
-//   book.authors = [];
-//   book.authors.push(...newAuthors);
-//   book.subjects = strToArr(book.subjects);
-//   book.bookshalves = strToArr(book.bookshalves);
-//   booksStore.books.value.push(book);
-//   notify({
-//     title: "SUCCESS 🎉",
-//     text: "You added a new book to the list",
-//     type: "success",
-//   });
-// }
 
 function submit(book) {
   v$.value.$validate();
