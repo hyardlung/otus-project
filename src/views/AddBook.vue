@@ -124,7 +124,7 @@
           </div>
           <button
             @click.prevent="addAuthor"
-            data-test="submit-button"
+            data-test="add-author-btn"
             :class="[
               'add-form__add-author',
               {

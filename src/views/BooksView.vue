@@ -12,7 +12,7 @@
       </div>
     </div>
     <template v-if="!generalStore.isLoading">
-      <div class="books">
+      <div class="books" data-testid="book-list">
         <BookCard
           v-for="(book, index) in booksStore.books.value"
           :data-testid="`book-remove-${index}`"

@@ -17,7 +17,7 @@
           :key="book.id"
           :card="book"
           :isDeletable="false"
-          @go-to-book="goToBook(book.id)"
+          @goToBookPage="goToBook(book.id)"
           @deleteBook="booksStore.deleteBook(index)"
         />
       </div>

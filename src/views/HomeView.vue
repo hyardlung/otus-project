@@ -1,12 +1,16 @@
 <template>
   <div class="container">
     <RouterLink to="/books" class="books-wrap books-wrap_books">
-      <div class="books-wrap__overlay">Books</div>
+      <div class="books-wrap__overlay">
+        <h2>Books</h2>
+      </div>
     </RouterLink>
     <div></div>
     <div class="divider"></div>
     <RouterLink to="/authors" class="books-wrap books-wrap_authors">
-      <div class="books-wrap__overlay">Authors</div>
+      <div class="books-wrap__overlay">
+        <h2>Authors</h2>
+      </div>
     </RouterLink>
   </div>
 </template>
@@ -29,11 +33,15 @@
   background-position: top
   background-size: 100%
   transition: all .3s ease
+  h2
+    transition: all .2s ease
   &:hover
     font-size: 60px
     background-size: 120%
   &:hover &__overlay
     padding: 60px
+    h2
+      color: #FFA500
 
   &__overlay
     position: absolute
