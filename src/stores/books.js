@@ -13,9 +13,14 @@ export const useBooksStore = defineStore("books", () => {
 
   async function getBooksFromApi() {
     generalStore.isLoading = true;
-    const response = await axios.get(baseURL.value);
-    books.value = response.data.results;
-    generalStore.isLoading = false;
+    try {
+      const response = await axios.get(baseURL.value);
+      books.value = response.data.results;
+      generalStore.isLoading = false;
+    } catch (err) {
+      console.log(err);
+      generalStore.isLoading = false;
+    }
   }
 
   async function prevPage() {
